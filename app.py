@@ -110,44 +110,50 @@ st.markdown(
 )
 
 
-# --- upload ---
-files = st.file_uploader("Upload .json or .csv files", type=["json", "csv"], accept_multiple_files=True)
+# ── File upload ───────────────────────────────────────────────────────────────
+files = st.file_uploader(
+    "Upload drone log files (.json or .csv)",
+    type=["json", "csv"],
+    accept_multiple_files=True
+)
 
-if not files:
-    st.stop()
-
-# --- load files ---
+# ── Load files (or fall back to sample data) ──────────────────────────────────
 def load_file(f):
     if f.name.endswith(".csv"):
         return pd.read_csv(f)
-
-    # try pandas built-in JSON reader first (handles most formats)
     try:
         return pd.read_json(f)
     except Exception:
         pass
-
-    # fallback: parse manually and flatten
     f.seek(0)
     raw = json.load(f)
     if isinstance(raw, dict):
-        # grab first list value if there is one, else wrap in list
         raw = next((v for v in raw.values() if isinstance(v, list)), [raw])
     return pd.json_normalize(raw)
 
-frames = []
-for f in files:
+if files:
+    # load uploaded files
+    frames = []
+    for f in files:
+        try:
+            frames.append(load_file(f))
+        except Exception as e:
+            st.warning(f"Skipped {f.name}: {e}")
+    if not frames:
+        st.error("No valid files could be loaded.")
+        st.stop()
+    df = pd.concat(frames, ignore_index=True)
+    st.success(f"{len(frames)} file(s) loaded — {len(df)} rows total")
+else:
+    # no files uploaded — show sample data as demo
+    st.info("👆 Upload your own files above, or explore the live demo below using sample data.")
     try:
-        frames.append(load_file(f))
-    except Exception as e:
-        st.warning(f"Skipped {f.name}: {e}")
-
-if not frames:
-    st.error("No files loaded.")
-    st.stop()
-
-df = pd.concat(frames, ignore_index=True)
-st.success(f"{len(frames)} file(s) — {len(df)} rows")
+        with open("sample_data/sample_flight.json") as f:
+            df = pd.json_normalize(json.load(f))
+        st.success("Showing sample flight data.")
+    except Exception:
+        st.warning("Upload a file to get started.")
+        st.stop()
 
 # --- auto-detect columns by keyword ---
 def find(df, *keywords):
