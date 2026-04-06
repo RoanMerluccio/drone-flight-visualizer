@@ -1,0 +1,17 @@
+[
+  { "timestamp": 0,  "aircraftAltitude": 0,  "aircraftLatitude": 40.7128, "aircraftLongitude": -74.0060, "batteryPercentage": 100, "speed": 0.0 },
+  { "timestamp": 1,  "aircraftAltitude": 5,  "aircraftLatitude": 40.7129, "aircraftLongitude": -74.0059, "batteryPercentage": 99,  "speed": 2.1 },
+  { "timestamp": 2,  "aircraftAltitude": 12, "aircraftLatitude": 40.7130, "aircraftLongitude": -74.0058, "batteryPercentage": 98,  "speed": 3.5 },
+  { "timestamp": 3,  "aircraftAltitude": 20, "aircraftLatitude": 40.7131, "aircraftLongitude": -74.0057, "batteryPercentage": 97,  "speed": 4.2 },
+  { "timestamp": 4,  "aircraftAltitude": 35, "aircraftLatitude": 40.7132, "aircraftLongitude": -74.0056, "batteryPercentage": 95,  "speed": 5.8 },
+  { "timestamp": 5,  "aircraftAltitude": 50, "aircraftLatitude": 40.7133, "aircraftLongitude": -74.0055, "batteryPercentage": 93,  "speed": 6.1 },
+  { "timestamp": 6,  "aircraftAltitude": 50, "aircraftLatitude": 40.7134, "aircraftLongitude": -74.0054, "batteryPercentage": 91,  "speed": 4.0 },
+  { "timestamp": 7,  "aircraftAltitude": 50, "aircraftLatitude": 40.7135, "aircraftLongitude": -74.0053, "batteryPercentage": 89,  "speed": 3.9 },
+  { "timestamp": 8,  "aircraftAltitude": 48, "aircraftLatitude": 40.7136, "aircraftLongitude": -74.0052, "batteryPercentage": 87,  "speed": 3.5 },
+  { "timestamp": 9,  "aircraftAltitude": 45, "aircraftLatitude": 40.7137, "aircraftLongitude": -74.0051, "batteryPercentage": 85,  "speed": 3.2 },
+  { "timestamp": 10, "aircraftAltitude": 40, "aircraftLatitude": 40.7138, "aircraftLongitude": -74.0050, "batteryPercentage": 83,  "speed": 2.8 },
+  { "timestamp": 11, "aircraftAltitude": 30, "aircraftLatitude": 40.7139, "aircraftLongitude": -74.0049, "batteryPercentage": 82,  "speed": 2.1 },
+  { "timestamp": 12, "aircraftAltitude": 15, "aircraftLatitude": 40.7140, "aircraftLongitude": -74.0048, "batteryPercentage": 81,  "speed": 1.5 },
+  { "timestamp": 13, "aircraftAltitude": 5,  "aircraftLatitude": 40.7141, "aircraftLongitude": -74.0047, "batteryPercentage": 80,  "speed": 0.8 },
+  { "timestamp": 14, "aircraftAltitude": 0,  "aircraftLatitude": 40.7142, "aircraftLongitude": -74.0046, "batteryPercentage": 80,  "speed": 0.0 }
+]
