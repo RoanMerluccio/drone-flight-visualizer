@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import json
+import os
 
 # --- drone intro animation ---
 st.markdown("""
@@ -147,13 +148,15 @@ if files:
 else:
     # no files uploaded — show sample data as demo
     st.info("👆 Upload your own files above, or explore the live demo below using sample data.")
+    sample_path = os.path.join(os.path.dirname(__file__), "sample_data", "sample_flight.json")
     try:
-        with open("sample_data/sample_flight.json") as f:
+        with open(sample_path) as f:
             df = pd.json_normalize(json.load(f))
         st.success("Showing sample flight data.")
-    except Exception:
-        st.warning("Upload a file to get started.")
+    except Exception as e:
+        st.warning(f"Upload a file to get started. ({e})")
         st.stop()
+
 
 # --- auto-detect columns by keyword ---
 def find(df, *keywords):
