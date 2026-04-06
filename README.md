@@ -3,7 +3,7 @@
 A lightweight tool that converts raw drone telemetry logs into a clean dataset and visualizes flight performance in seconds.
 
 ## 🔗 Live Demo
-[Try it here](YOUR_STREAMLIT_LINK)
+[Try it here](https://droneviz.streamlit.app/)
 
 ## ⚡ Features
 - Upload multiple JSON or CSV drone log files
