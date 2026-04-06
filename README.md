@@ -1,83 +1,22 @@
 # 🚁 Drone Flight Data Visualizer
 
-A lightweight tool that converts raw drone telemetry logs into a clean dataset and visualizes flight performance in seconds.
+A simple Python app that turns raw drone telemetry logs into clean graphs and flight maps in seconds.
 
-Built by **Roan Merluccio**
+**👉 [Try the Live Demo](https://droneviz.streamlit.app/)**
 
----
-
-## 🔗 Live Demo
-[Try it here](https://droneviz.streamlit.app/)
-
----
-
-## ⚡ Features
-- Upload multiple JSON or CSV drone log files
-- Combine fragmented telemetry into one dataset
-- Auto-detect key fields (time, altitude, speed, battery, GPS)
-- Clean and normalize messy real-world data
-- Generate performance graphs:
-  - Altitude vs Time
-  - Speed vs Time
-  - Battery vs Time
-- Visualize flight path using GPS coordinates
-- Export cleaned data as CSV
-
----
-
-## 🧠 How It Works
-1. Upload raw telemetry files
-2. Data is automatically combined and cleaned
-3. Key metrics are extracted
-4. Graphs and insights are generated
-
----
-
-## 📂 Sample Data
-A sample file is included in `sample_data/` so you can test the app right away.
-
-The real-world test data used during development comes from a published UAV telemetry dataset:
-
-> Díez Tomillo, J., Sáez Pérez, J., & Salva-Garcia, P. (2025).  
-> *UAV Telemetry Dataset with Waypoint Navigation* [Data set].  
-> Zenodo. https://doi.org/10.5281/zenodo.15912415
-
-Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).  
-Data collected at the University of the West of Scotland as part of the INCODE project (EU grant 101093069).
-
----
-
-## 🛠 Tech Stack
-- Python
-- Streamlit
-- pandas
-- matplotlib
-
----
+## ⚡ What it does
+- **Upload & Clean:** Upload messy raw drone data (JSON or CSV). The app cleans and combines it automatically.
+- **Auto-detect:** Automatically finds columns for altitude, speed, battery, and GPS.
+- **Visualize:** Generates performance graphs and a flight path map.
+- **Export:** Download your cleaned dataset as a CSV.
 
 ## 🚀 Run Locally
-
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
----
+## 📂 Sample Data
+The `sample_data/` folder contains a test file you can upload to try it out.  
 
-## 📁 Project Structure
-
-```
-drone-flight-visualizer/
-├── app.py                  # main app
-├── requirements.txt        # dependencies
-├── README.md               # this file
-├── sample_data/
-│   └── sample_flight.json  # test data
-└── .streamlit/
-    └── config.toml         # dark theme config
-```
-
----
-
-## 📸 Screenshot
-*(Add a screenshot of the app here)*
+*(Sample data adapted from the [UAV Telemetry Dataset](https://doi.org/10.5281/zenodo.15912415) by Díez Tomillo et al. under CC BY 4.0).*
