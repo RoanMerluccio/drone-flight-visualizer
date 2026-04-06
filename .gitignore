@@ -11,3 +11,7 @@ env/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Raw local data (do not push to github)
+flightplan_drone*/
+.devcontainer/

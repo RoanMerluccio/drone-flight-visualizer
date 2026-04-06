@@ -5,7 +5,7 @@ A simple Python app that turns raw drone telemetry logs into clean graphs and fl
 **👉 [Try the Live Demo](https://droneviz.streamlit.app/)**
 
 ## ⚡ What it does
-- **Upload & Clean:** Upload messy raw drone data (JSON or CSV). The app cleans and combines it automatically.
+- **Upload & Clean:** Upload messy raw drone data (JSON or CSV). The app cleans and combines.
 - **Auto-detect:** Automatically finds columns for altitude, speed, battery, and GPS.
 - **Visualize:** Generates performance graphs and a flight path map.
 - **Export:** Download your cleaned dataset as a CSV.
