@@ -1,8 +1,10 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 import json
 import os
+import numpy as np
 
 # ── Page header ───────────────────────────────────────────────────────────────
 st.title("Drone Flight Data Visualizer")
@@ -117,6 +119,30 @@ stat2.metric("Avg Speed",    f"{clean_data['speed'].mean():.2f}")
 if "battery" in clean_data.columns:
     stat3.metric("Battery Drop", f"{clean_data['battery'].iloc[0] - clean_data['battery'].iloc[-1]:.2f}")
 
+# --- anomaly detection ---
+st.subheader("⚠️ Anomaly Detection")
+ANOMALY_THRESHOLD = 2.5  # z-score cutoff
+
+anom_cols = [c for c in ["altitude", "speed", "battery"] if c in clean_data.columns]
+anom_mask = pd.Series(False, index=clean_data.index)
+for col in anom_cols:
+    z = (clean_data[col] - clean_data[col].mean()) / clean_data[col].std()
+    anom_mask |= z.abs() > ANOMALY_THRESHOLD
+
+anomalies = clean_data[anom_mask]
+n_anom = len(anomalies)
+
+a1, a2 = st.columns(2)
+a1.metric("Anomalies Found", n_anom)
+a2.metric("Columns Checked", len(anom_cols))
+
+if n_anom > 0:
+    st.warning(f"{n_anom} data point(s) flagged as anomalies (z-score > {ANOMALY_THRESHOLD}).")
+    with st.expander("View anomalous rows"):
+        st.dataframe(anomalies)
+else:
+    st.success("No anomalies detected — flight data looks clean!")
+
 # --- graphs ---
 x       = clean_data["time"] if "time" in clean_data.columns else clean_data.index
 x_label = "time"        if "time" in clean_data.columns else "index"
@@ -145,6 +171,46 @@ if lat_col and lon_col:
         "lon": pd.to_numeric(data[lon_col], errors="coerce")
     }).dropna()
     st.map(map_data)
+
+# --- 3D flight path ---
+if lat_col and lon_col:
+    st.subheader("🛸 3D Flight Path")
+    df3d = pd.DataFrame({
+        "lat":      pd.to_numeric(data[lat_col], errors="coerce"),
+        "lon":      pd.to_numeric(data[lon_col], errors="coerce"),
+        "altitude": clean_data["altitude"].values if len(clean_data) == len(data) else np.nan
+    }).dropna()
+
+    if len(df3d) < 2:
+        st.info("Not enough data points for a 3D path.")
+    else:
+        fig3d = go.Figure()
+        fig3d.add_trace(go.Scatter3d(
+            x=df3d["lon"],
+            y=df3d["lat"],
+            z=df3d["altitude"],
+            mode="lines+markers",
+            line=dict(color=df3d["altitude"], colorscale="Plasma", width=4),
+            marker=dict(size=2, color=df3d["altitude"], colorscale="Plasma",
+                        colorbar=dict(title="Altitude")),
+            name="Flight Path"
+        ))
+        fig3d.update_layout(
+            scene=dict(
+                xaxis_title="Longitude",
+                yaxis_title="Latitude",
+                zaxis_title="Altitude",
+                bgcolor="#0d1117",
+                xaxis=dict(backgroundcolor="#0d1117", gridcolor="#30363d", color="#8b949e"),
+                yaxis=dict(backgroundcolor="#0d1117", gridcolor="#30363d", color="#8b949e"),
+                zaxis=dict(backgroundcolor="#0d1117", gridcolor="#30363d", color="#8b949e"),
+            ),
+            paper_bgcolor="#161b22",
+            font=dict(color="#c9d1d9"),
+            margin=dict(l=0, r=0, t=30, b=0),
+            height=500
+        )
+        st.plotly_chart(fig3d, use_container_width=True)
 
 # --- export ---
 st.subheader("Export")
